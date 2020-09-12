@@ -1,20 +1,44 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { useCallback } from "react";
+import { connect } from "react-redux";
 
-import './cart.css';
+import {
+  changeQuantity,
+  removeFromCart,
+} from "../../redux/actions/cart.actions";
 
-export class Cart extends Component {
-  constructor(props) {
-    super(props);
-  }
+import "./cart.css";
 
-  render() {
-    return (<div className="App-cart">
-      {this.props.inCart.length ? 'There is some items in you cart' : 'Your cart is empty :('}
-    </div>);
-  }
+export function Cart({ cart, changeQuantity, removeFromCart }) {
+  
+  const renderCart = useCallback(() => {
+    return cart.map((item, index) => (
+      <div className="cart_list_item" key={index}>
+        <p>{item.name}</p>
+        <p>Price: {item.price}</p>
+        <input
+          type="number"
+          value={item.quantity}
+          min="0"
+          onChange={(event) =>
+            changeQuantity({ name: item.name, quantity: event.target.value })
+          }
+        ></input>
+        <button onClick={() => removeFromCart({name: item.name})}>Delete</button>
+      </div>
+    ));
+  }, [cart, changeQuantity, removeFromCart]);
+
+  return (
+    <div className="App-cart">
+      {cart.length ? renderCart() : "Your cart is empty :("}
+    </div>
+  );
 }
 
-const mapStateToProps = state => ({...state});
+const mapStateToProps = (state) => ({ ...state });
+const mapDispatchToProps = {
+  changeQuantity,
+  removeFromCart,
+};
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

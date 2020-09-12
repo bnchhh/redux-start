@@ -1,8 +1,6 @@
-import {GET_CART_ITEMS} from '../actions/cart.actions';
 import {GET_PRODUCT_LIST} from '../actions/products.action';
 
 const initState = {
-  inCart: [],
   products: [
     {
       name: 'iPhone 4s',
@@ -57,10 +55,8 @@ const initState = {
   ]
 };
 
-export default (state = initState, action) => {
+export default (state = initState.products, action) => {
   switch (action.type) {
-    case GET_CART_ITEMS:
-      return state.inCart;
     case GET_PRODUCT_LIST:
       return state.products;
     default:

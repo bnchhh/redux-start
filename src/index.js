@@ -11,7 +11,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 // Redux store
-import applicationStore from './registerApplicationStore';
+import applicationStore from './redux/registerApplicationStore';
 
 
 ReactDOM.render(
