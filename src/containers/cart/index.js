@@ -1,33 +1,17 @@
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
-
-import {
-  changeQuantity,
-  removeFromCart,
-} from "../../redux/actions/cart.actions";
+import CartListItem from "../../components/cart-list-item";
 
 import "./cart.css";
 
-export function Cart({ cart, changeQuantity, removeFromCart }) {
-  
+export function Cart({ cart }) {
+
   const renderCart = useCallback(() => {
     return cart.map((item, index) => (
-      <div className="cart_list_item" key={index}>
-        <p>{item.name}</p>
-        <p>Price: {item.price}</p>
-        <input
-          type="number"
-          value={item.quantity}
-          min="0"
-          onChange={(event) =>
-            changeQuantity({ name: item.name, quantity: event.target.value })
-          }
-        ></input>
-        <button onClick={() => removeFromCart({name: item.name})}>Delete</button>
-      </div>
+      <CartListItem item={item} key={item.name} />
     ));
-  }, [cart, changeQuantity, removeFromCart]);
-
+  }, [cart]);
+  
   return (
     <div className="App-cart">
       {cart.length ? renderCart() : "Your cart is empty :("}
@@ -36,9 +20,5 @@ export function Cart({ cart, changeQuantity, removeFromCart }) {
 }
 
 const mapStateToProps = (state) => ({ ...state });
-const mapDispatchToProps = {
-  changeQuantity,
-  removeFromCart,
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps)(Cart);

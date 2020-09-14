@@ -11,7 +11,7 @@ export default (state = [], action) => {
       return state;
 
     case ADD_TO_CART: {
-      const { name, price } = action.payload;
+      const { name, price, available } = action.payload;
 
       //if we have same item added twice
       const itemIndex = state.findIndex((x) => x.name === name);
@@ -24,7 +24,7 @@ export default (state = [], action) => {
         return copiedState;
       }
 
-      return [{ name, price, quantity: 1 }, ...state];
+      return [{ name, price, available, quantity: 1 }, ...state];
     }
 
     case REMOVE_FROM_CART: {
@@ -37,7 +37,9 @@ export default (state = [], action) => {
       const { name, quantity } = action.payload;
 
       return state.map((item) => {
-        return item.name === name ? { ...item, quantity } : item;
+        return item.name === name
+          ? { ...item, quantity}
+          : item;
       });
     }
 

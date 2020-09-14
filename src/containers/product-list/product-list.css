@@ -1,6 +1,5 @@
 .App-product_list {
     width: 100%;
-    padding: 0 10px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -25,4 +24,10 @@
 
 .add-to-cart-btn {
     margin-top: 10px;
+}
+
+select {
+    display: block;
+    padding: 0.5em 1.2em;
+    margin: 10px;
 }

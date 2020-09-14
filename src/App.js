@@ -1,9 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // Components
 import SideBar from "./components/sidebar";
+import Header from "./components/header";
 import Cart from "./containers/cart";
 import ProductList from "./containers/product-list";
+import AddItemDialog from "./components/add-item-dialog";
 
 // CSS
 import "./App.css";
@@ -12,22 +14,20 @@ export default function App() {
   return (
     <div className="App">
       <Router>
-        <header className="App-header">
-          <Link to="/">
-            <h1 className="App-title">My simple shop</h1>
-          </Link>
-        </header>
-
+        <Header />
         <div className="App-wrapper">
           <SideBar />
-          <Switch>
-            <Route path="/" exact>
-              <ProductList />
-            </Route>
-            <Route path="/cart">
-              <Cart />
-            </Route>
-          </Switch>
+          <AddItemDialog />
+          <div className="items-container">
+            <Switch>
+              <Route path="/" exact>
+                <ProductList />
+              </Route>
+              <Route path="/cart">
+                <Cart />
+              </Route>
+            </Switch>
+          </div>
         </div>
       </Router>
     </div>

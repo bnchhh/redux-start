@@ -1,16 +1,12 @@
 .App {
-    text-align: left;
-}
-
-.App-header {
-    background-color: #222;
-    height: 50px;
-    padding: 20px;
-    color: white;
+  text-align: left;
 }
 
 .App-wrapper {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.items-container {
+    padding: 2rem;
 }

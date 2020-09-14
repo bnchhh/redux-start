@@ -1,27 +1,44 @@
-import React, { useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { connect } from "react-redux";
-import { addToCart } from "../../redux/actions/cart.actions";
-
+import ProductListItem from "../../components/product-list-item";
 import "./product-list.css";
 
-export function ProductList({ products, addToCart }) {
-  const renderProducts = useCallback(() => {
-    return products.map((item, index) => (
-      <div className="product_list_item" key={index}>
-        <p>{item.name}</p>
-        <p>Price: {item.price}</p>
-        <p>{item.available > 0 ? "In stock" : "Sold out"}</p>
-        <button className="add-to-cart-btn" onClick={() => addToCart(item)}>
-          Add to cart
-        </button>
-      </div>
-    ));
-  }, [products, addToCart]);
+const sortingFunction = (el1, el2, sortingProp) => {
+  if (el1[sortingProp] > el2[sortingProp]) return 1;
+  if (el1[sortingProp] < el2[sortingProp]) return -1;
+  return 0;
+};
 
-  return <div className="App-product_list">{renderProducts()}</div>;
+export function ProductList({ products }) {
+  const [sortingProp, setSortingProp] = useState("name");
+
+  const renderProducts = useCallback(() => {
+    const copyForSort = [...products];
+    copyForSort.sort((el1, el2) => sortingFunction(el1, el2, sortingProp));
+
+    return copyForSort.map((item) => (
+      <ProductListItem key={item.name} item={item} />
+    ));
+  }, [sortingProp, products]);
+
+  return (
+    <>
+    <select
+        value={sortingProp}
+        onChange={(event) => setSortingProp(event.target.value)}
+      >
+        <option value="name">Name</option>
+        <option value="price">Price</option>
+        <option value="available">Availability</option>
+      </select>
+    <div className="App-product_list">
+      {renderProducts()}
+    </div>
+  
+  </>
+  );
 }
 
-const mapStateToProps = (state) => ({ ...state });
-const mapDispatchToProps = { addToCart };
+const mapStateToProps = (state) => ({ products: state.products });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default connect(mapStateToProps)(ProductList);
