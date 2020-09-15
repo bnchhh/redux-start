@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 
-const dataPath = "./public/items.json";
+const dataPath = path.resolve(__dirname, "./public/items.json");
 
 app.get("/products", (req, res) => {
   fs.readFile(dataPath, "utf8", (err, data) => {

@@ -12,9 +12,9 @@ export default (state = [], action) => {
       return state.concat(action.payload);
     }
     case CHANGE_AVAILABILITY: {
-      const { name, prevQuantity = 0, quantity } = action.payload;
+      const { id, prevQuantity = 0, quantity } = action.payload;
       return state.map((item) =>
-        item.name === name
+        item.id === id
           ? { ...item, available: item.available + prevQuantity - quantity }
           : item
       );

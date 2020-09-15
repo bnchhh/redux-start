@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect} from "react";
 import { connect } from "react-redux";
 import ProductListItem from "../../components/product-list-item";
-import loadProducts from '../../redux/thunks/load'
+import loadProducts from '../../redux/thunks/loadProducts'
 
 import "./product-list.css";
 

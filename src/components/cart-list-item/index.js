@@ -16,9 +16,9 @@ const CartListItem = ({
 
   const handleDelete = useCallback(
     (item) => {
-      removeFromCart({ name: item.name });
+      removeFromCart({ id: item.id });
       changeAvailability({
-        name: item.name,
+        id: item.id,
         prevQuantity: quantity,
         quantity: 0,
       });
@@ -30,11 +30,11 @@ const CartListItem = ({
   const handleQuantityChange = useCallback(
     (event, item) => {
       changeQuantity({
-        name: item.name,
+        id: item.id,
         quantity: Number(event.target.value),
       });
       changeAvailability({
-        name: item.name,
+        id: item.id,
         prevQuantity: quantity,
         quantity: Number(event.target.value),
       });
@@ -47,17 +47,18 @@ const CartListItem = ({
   return (
     <div className="cart_list_item">
       <p>{item.name}</p>
-      <p>Price: {item.price}</p>
-      <input
-        type="number"
-        value={quantity}
-        min="0"
-        max={item.available}
-        onChange={(event) => {
-          handleQuantityChange(event, item);
-        }}
-      ></input>
-      <button onClick={() => handleDelete(item)}>Delete</button>
+      <div className="control-block">
+        <input
+          type="number"
+          value={quantity}
+          min="0"
+          max={item.available}
+          onChange={(event) => {
+            handleQuantityChange(event, item);
+          }}
+        ></input>
+        <button onClick={() => handleDelete(item)}>Delete</button>
+      </div>
     </div>
   );
 };
