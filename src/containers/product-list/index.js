@@ -1,6 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect} from "react";
 import { connect } from "react-redux";
 import ProductListItem from "../../components/product-list-item";
+import loadProducts from '../../redux/thunks/load'
+
 import "./product-list.css";
 
 const sortingFunction = (el1, el2, sortingProp) => {
@@ -9,18 +11,23 @@ const sortingFunction = (el1, el2, sortingProp) => {
   return 0;
 };
 
-export function ProductList({ products }) {
+export function ProductList({ products, loadProducts}) {
   const [sortingProp, setSortingProp] = useState("name");
+
+  useEffect(() => {
+    loadProducts();
+  }, [loadProducts]);
 
   const renderProducts = useCallback(() => {
     const copyForSort = [...products];
     copyForSort.sort((el1, el2) => sortingFunction(el1, el2, sortingProp));
 
     return copyForSort.map((item) => (
-      <ProductListItem key={item.name} item={item} />
+      <ProductListItem key={item.id} item={item} />
     ));
   }, [sortingProp, products]);
 
+  
   return (
     <>
     <select
@@ -40,5 +47,8 @@ export function ProductList({ products }) {
 }
 
 const mapStateToProps = (state) => ({ products: state.products });
+const mapDispatchToProps = {
+  loadProducts
+}
 
-export default connect(mapStateToProps)(ProductList);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

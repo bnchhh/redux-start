@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { toggleModal } from "../../redux/actions/modal.actions";
-import { addNewProduct } from "../../redux/actions/products.action";
+import postProduct from "../../redux/thunks/postProduct";
 
-import './add-item.css';
+import "./add-item.css";
 
-const AddItemDialog = ({ open, toggleModal, addNewProduct }) => {
+const AddItemDialog = ({ open, productLength, toggleModal, postProduct }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [available, setAvailability] = useState(0);
 
   const submitHandler = (event) => {
     event.preventDefault();
-    addNewProduct({ name, price, available });
-    setName('');
+    const id = productLength;
+    postProduct({ item: { id, name, price, available } });
+    setName("");
     setPrice(0);
     setAvailability(0);
     toggleModal();
@@ -50,8 +51,12 @@ const AddItemDialog = ({ open, toggleModal, addNewProduct }) => {
           />
         </label>
         <menu>
-          <button className='dialog-button' type="cancel">Cancel</button>
-          <button className='dialog-button' type="submit">Confirm</button>
+          <button className="dialog-button" type="cancel">
+            Cancel
+          </button>
+          <button className="dialog-button" type="submit">
+            Confirm
+          </button>
         </menu>
       </form>
     </dialog>
@@ -59,12 +64,12 @@ const AddItemDialog = ({ open, toggleModal, addNewProduct }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { open: state.modal };
+  return { open: state.modal, productLength: state.products.length };
 };
 
 const mapDispatchToProps = {
   toggleModal,
-  addNewProduct,
+  postProduct,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddItemDialog);
