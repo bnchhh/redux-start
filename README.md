@@ -1,12 +1,14 @@
 <h3>Task for react group</h3>
 
 <b>How to install:</b>
+
 <ul>
     <li>[x] Run <b>npm install</b> in root directory</li>
     <li>[x] After successfull installation, run <b>npm start</b></li>
 </ul>
 
-<b>Your task:</b> 
+<b>Your task:</b>
+
 <ul>
     <b>General</b>
         <ul>
@@ -26,7 +28,7 @@
         <li>[x] Hide or disable 'Add to cart' button in case if product sold out</li>
         <li>[х] Implement possibility to add new product into product list. Use html5 native modal window (for form).</li>
         <li>[x] Implement sorting by <b>Name</b>, <b>Price</b>, <b>Availability</b></li>
-        <li>[ ] Refactor reducer, load data using xhr - find how to deal with async operations using redux-thunk (your product list should be saved into JSON file)</li>
+        <li>[x] Refactor reducer, load data using xhr - find how to deal with async operations using redux-thunk (your product list should be saved into JSON file)</li>
     </ul>
     <b>Cart page</b>
     <ul>
@@ -38,8 +40,8 @@
     </ul>
     <b>Extra</b>
     <ul>
-        <li>[ ] In cart page show "Next" button</li>
-        <li>[ ] If user clicks next, show cart summary and the message about successful shopping</li>
+        <li>[x] In cart page show "Next" button</li>
+        <li>[x] If user clicks next, show cart summary and the message about successful shopping</li>
     </ul>
 </ul>
 
